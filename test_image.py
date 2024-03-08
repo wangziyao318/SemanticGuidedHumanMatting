@@ -44,10 +44,20 @@ if not os.path.exists(args.pretrained_weight):
 # --------------- Main ---------------
 # Load Model
 model = HumanMatting(backbone='resnet50')
-model = nn.DataParallel(model).cuda().eval()
-model.load_state_dict(torch.load(args.pretrained_weight))
+device = 'cuda' if torch.cuda.is_available() else 'cpu'
+if device == 'cuda':
+    model = nn.DataParallel(model).cuda().eval()
+    model.load_state_dict(torch.load(args.pretrained_weight))
+else:
+    state_dict = torch.load(args.pretrained_weight, map_location="cpu")
+    from collections import OrderedDict
+    new_state_dict = OrderedDict()
+    for k, v in state_dict.items():
+        name = k[7:]
+        new_state_dict[name] = v
+    model.load_state_dict(new_state_dict)
+model.eval()
 print("Load checkpoint successfully ...")
-
 
 # Load Images
 image_list = sorted([*glob.glob(os.path.join(args.images_dir, '**', '*.jpg'), recursive=True),
@@ -90,7 +100,7 @@ for i in range(num_image):
         gt_alpha = np.array(gt_alpha) / 255.0
 
     # inference
-    pred_alpha, pred_mask = inference.single_inference(model, img)
+    pred_alpha, pred_mask = inference.single_inference(model, img, device=device)
 
     # evaluation
     if args.gt_dir is not None:

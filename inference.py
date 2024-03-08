@@ -17,7 +17,8 @@ pil_to_tensor = transforms.Compose(
 
 infer_size = 1280
 
-def single_inference(model, img):
+
+def single_inference(model, img, device='cuda'):
     h = img.height
     w = img.width
     if w >= h:
@@ -30,7 +31,7 @@ def single_inference(model, img):
     rw = rw - rw % 64    
 
     img = pil_to_tensor(img)
-    img = img[None, :, :, :].cuda()
+    img = img[None, :, :, :].to(device)
 
     input_tensor = F.interpolate(img, size=(rh, rw), mode='bilinear')
     with torch.no_grad():
