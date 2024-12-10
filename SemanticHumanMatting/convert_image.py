@@ -26,7 +26,7 @@ def main():
     device = 'cuda' if torch.cuda.is_available() else 'cpu'
     if device == 'cuda':
         model = nn.DataParallel(model).cuda().eval()
-        model.load_state_dict(torch.load(args.pretrained_weight))
+        model.load_state_dict(torch.load(args.pretrained_weight, weights_only=False))
     else:
         state_dict = torch.load(args.pretrained_weight, map_location="cpu")
         from collections import OrderedDict
