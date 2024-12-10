@@ -5,7 +5,7 @@ with open('requirements.txt', encoding='utf-8') as f:
     install_requires = [str(requirement) for requirement in parse_requirements(f)]
 
 setup(
-    name='SemanticGuidedHumanMatting',
+    name='semantic-human-matting',
     version='1.0.0',
     author='Chen et al.',
     description='Robust Human Matting via Semantic Guidance, ACCV 2022',
