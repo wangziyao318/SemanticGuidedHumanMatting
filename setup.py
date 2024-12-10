@@ -15,6 +15,6 @@ setup(
         'Programming Language :: Python :: 3'
     ],
     include_package_data=False,
-    packages=[SemanticHumanMatting],
+    packages=find_packages(),
     install_requires = install_requires
 )
