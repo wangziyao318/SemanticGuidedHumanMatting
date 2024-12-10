@@ -51,10 +51,10 @@ def main():
     pred_alpha, pred_mask = inference.single_inference(model, img, device=device)
 
     # save results
-    output_dir = args.output + image_path[len(args.images_dir):image_path.rfind('/')]
+    output_dir = args.output
     if not os.path.exists(output_dir):
         os.makedirs(output_dir)
-    save_path = output_dir + '/' + image_name + '.png'
+    save_path = output_dir + '/' + image_name + '_mesh' + '.png'
     Image.fromarray(((pred_alpha * 255).astype('uint8')), mode='L').save(save_path)
 
 if __name__ == '__main__':
