@@ -4,8 +4,8 @@ from PIL import Image
 import torch
 import torch.nn as nn
 
-from model.model import HumanMatting
-import inference
+from SemanticHumanMatting.model.model import HumanMatting
+from SemanticHumanMatting import inference
 
 def main():
     # --------------- Arguments ---------------
