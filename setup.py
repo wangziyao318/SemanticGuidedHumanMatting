@@ -14,7 +14,7 @@ setup(
     classifiers=[
         'Programming Language :: Python :: 3'
     ],
-    include_package_data=True,
-    packages=find_packages(),
+    include_package_data=False,
+    packages=[SemanticHumanMatting],
     install_requires = install_requires
 )
