@@ -12,7 +12,7 @@ def main():
     parser = argparse.ArgumentParser(description='Test Images')
     parser.add_argument('--input', type=str, required=True)
     parser.add_argument('--output', type=str, required=True)
-    parser.add_argument('--model', type=str, required=True)
+    parser.add_argument('--pretrained_weight', type=str, required=True)
 
     args = parser.parse_args()
 
